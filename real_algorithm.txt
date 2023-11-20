@@ -1,0 +1,278 @@
+pip install supabase-py
+
+pip install nltk
+
+import os
+from supabase_py import create_client
+
+# 환경 변수 설정
+os.environ["SUPABASE_URL"] = "https://poktjrhwxlfhtmzhwxxh.supabase.co"
+os.environ["SUPABASE_KEY"] = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBva3Rqcmh3eGxmaHRtemh3eHhoIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTY5NzAwMzU2OCwiZXhwIjoyMDEyNTc5NTY4fQ.ent9ALaIYrTG_G96xHEF8fr9CwxW3jrefUJTUvkAtbU"
+
+# Supabase 클라이언트 생성
+supabase = create_client(os.environ.get("SUPABASE_URL"), os.environ.get("SUPABASE_KEY"))
+
+data = supabase.table("Lodata").select("CL_NM").limit(10).execute()
+print(data)
+
+import os
+from supabase_py import create_client
+
+# 환경 변수 설정
+os.environ["SUPABASE_URL"] = "https://poktjrhwxlfhtmzhwxxh.supabase.co"
+os.environ["SUPABASE_KEY"] = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBva3Rqcmh3eGxmaHRtemh3eHhoIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTY5NzAwMzU2OCwiZXhwIjoyMDEyNTc5NTY4fQ.ent9ALaIYrTG_G96xHEF8fr9CwxW3jrefUJTUvkAtbU"
+
+# Supabase 클라이언트 생성
+supabase = create_client(os.environ.get("SUPABASE_URL"), os.environ.get("SUPABASE_KEY"))
+
+# 사용자로부터 입력 받은 도와 관광지의 분류
+user_province = input("원하는 지역 분류: ")
+user_hashtag = input("원하는 해시태그: ")
+
+# Supabase에서 입력 받은 도와 관광지의 분류에 해당하는 데이터 추출
+data = supabase.table("Lodata").select("CL_NM", "POI_NM", "LC_LO", "LC_LA","CTPRVN_NM","SIGNGU_NM").filter("CTPRVN_NM", "eq", user_province).filter("CL_NM", "eq", user_hashtag).limit(5).execute()
+
+# 결과를 원하는 형식으로 출력
+for index, row in enumerate(data["data"], start=1):
+    address = row["CTPRVN_NM"]
+    maddress = row["SIGNGU_NM"]
+    hashtag = row["CL_NM"]
+    name = row["POI_NM"]
+    latitude = row["LC_LO"]
+    longitude = row["LC_LA"]
+
+    print(f"{index}. 도: {address}, 시/군: {maddress}, 해시태그: {hashtag}, 이름: {name}, 위도: {latitude}, 경도: {longitude}")
+
+import os
+from supabase_py import create_client
+
+# 환경 변수 설정
+os.environ["SUPABASE_URL"] = "https://poktjrhwxlfhtmzhwxxh.supabase.co"
+os.environ["SUPABASE_KEY"] = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBva3Rqcmh3eGxmaHRtemh3eHhoIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTY5NzAwMzU2OCwiZXhwIjoyMDEyNTc5NTY4fQ.ent9ALaIYrTG_G96xHEF8fr9CwxW3jrefUJTUvkAtbU"
+
+# Supabase 클라이언트 생성
+supabase = create_client(os.environ.get("SUPABASE_URL"), os.environ.get("SUPABASE_KEY"))
+
+# 사용자로부터 입력 받은 도와 관광지의 분류
+user_province = input("원하는 지역 분류: ")
+user_hashtags = input("원하는 해시태그들을 쉼표로 구분하여 입력하세요: ").split(',')
+
+# 각 해시태그의 빈도수를 저장할 딕셔너리 초기화
+hashtag_counts = {}
+
+# 각 해시태그에 대한 빈도수 계산
+for hashtag in user_hashtags:
+    data = supabase.table("Lodata").select("CL_NM", "POI_NM", "LC_LO", "LC_LA", "CTPRVN_NM", "SIGNGU_NM").filter("CTPRVN_NM", "eq", user_province).filter("CL_NM", "eq", hashtag).limit(5).execute()
+    hashtag_counts[hashtag] = len(data["data"])
+
+# 빈도수가 높은 순서로 정렬
+sorted_hashtags = sorted(hashtag_counts.items(), key=lambda x: x[1], reverse=True)
+
+# 정렬된 해시태그에 따라 데이터 출력
+for hashtag, count in sorted_hashtags:
+    data = supabase.table("Lodata").select("CL_NM", "POI_NM", "LC_LO", "LC_LA", "CTPRVN_NM", "SIGNGU_NM").filter("CTPRVN_NM", "eq", user_province).filter("CL_NM", "eq", hashtag).limit(5).execute()
+
+    # 결과를 원하는 형식으로 출력
+    print(f"\n해시태그: {hashtag} (빈도: {count})")
+    for index, row in enumerate(data["data"], start=1):
+        address = row["CTPRVN_NM"]
+        maddress = row["SIGNGU_NM"]
+        name = row["POI_NM"]
+        latitude = row["LC_LO"]
+        longitude = row["LC_LA"]
+
+        print(f"{index}. 도: {address}, 시/군: {maddress}, 이름: {name}, 위도: {latitude}, 경도: {longitude}")
+
+
+import os
+from supabase_py import create_client
+
+# 환경 변수 설정
+os.environ["SUPABASE_URL"] = "https://poktjrhwxlfhtmzhwxxh.supabase.co"
+os.environ["SUPABASE_KEY"] = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBva3Rqcmh3eGxmaHRtemh3eHhoIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTY5NzAwMzU2OCwiZXhwIjoyMDEyNTc5NTY4fQ.ent9ALaIYrTG_G96xHEF8fr9CwxW3jrefUJTUvkAtbU"
+
+# Supabase 클라이언트 생성
+supabase = create_client(os.environ.get("SUPABASE_URL"), os.environ.get("SUPABASE_KEY"))
+
+# 사용자로부터 입력 받은 도와 관광지의 분류
+user_province = input("원하는 지역 분류: ")
+user_hashtag1 = input("원하는 해시태그1: ")
+user_hashtag2 = input("원하는 해시태그2: ")
+user_hashtag3 = input("원하는 해시태그3: ")
+
+# Supabase에서 입력 받은 도와 관광지의 분류에 해당하는 데이터 추출
+data = supabase.table("case").select("NM", "Region", "KW1", "KW2", "KW3").filter("Region", "eq", user_province).filter("KW1", "eq", user_hashtag1).filter("KW2", "eq", user_hashtag2).filter("KW3", "eq", user_hashtag3).limit(5).execute()
+
+# 결과를 원하는 형식으로 출력
+for index, row in enumerate(data["data"], start=1):
+    name = row["NM"]
+    address = row["Region"]
+    hashtag1 = row["KW1"]
+    hashtag2 = row["KW2"]
+    hashtag3 = row["KW3"]
+
+    print(f"{index}. 이름: {name}, 지역: {address}, 해시태그1: {hashtag1}, 해시태그2: {hashtag2}, 해시태그3: {hashtag3}")
+
+
+import os
+from supabase_py import create_client
+
+# 환경 변수 설정
+os.environ["SUPABASE_URL"] = "https://poktjrhwxlfhtmzhwxxh.supabase.co"
+os.environ["SUPABASE_KEY"] = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBva3Rqcmh3eGxmaHRtemh3eHhoIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTY5NzAwMzU2OCwiZXhwIjoyMDEyNTc5NTY4fQ.ent9ALaIYrTG_G96xHEF8fr9CwxW3jrefUJTUvkAtbU"
+
+# Supabase 클라이언트 생성
+supabase = create_client(os.environ.get("SUPABASE_URL"), os.environ.get("SUPABASE_KEY"))
+
+# 사용자로부터 입력 받은 도와 관광지의 해시태그 리스트
+user_hashtags = [
+    input("원하는 해시태그1: "),
+    input("원하는 해시태그2: "),
+    input("원하는 해시태그3: ")
+]
+
+# Supabase에서 입력 받은 해시태그에 해당하는 데이터 추출
+data = supabase.table("case").select("NM", "Region", "KW1", "KW2", "KW3").execute()
+
+# 입력한 해시태그의 순서와 상관없이 찾기
+filtered_data = []
+for row in data["data"]:
+    hashtags = [row["KW1"], row["KW2"], row["KW3"]]
+    if set(user_hashtags) <= set(hashtags):
+        filtered_data.append(row)
+
+# 결과를 원하는 형식으로 출력
+for index, row in enumerate(filtered_data[:5], start=1):
+    name = row["NM"]
+    address = row["Region"]
+    hashtag1 = row["KW1"]
+    hashtag2 = row["KW2"]
+    hashtag3 = row["KW3"]
+
+    print(f"{index}. 이름: {name}, 지역: {address}, 해시태그1: {hashtag1}, 해시태그2: {hashtag2}, 해시태그3: {hashtag3}")
+
+
+import os
+from supabase_py import create_client
+
+# 환경 변수 설정
+os.environ["SUPABASE_URL"] = "https://poktjrhwxlfhtmzhwxxh.supabase.co"
+os.environ["SUPABASE_KEY"] = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBva3Rqcmh3eGxmaHRtemh3eHhoIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTY5NzAwMzU2OCwiZXhwIjoyMDEyNTc5NTY4fQ.ent9ALaIYrTG_G96xHEF8fr9CwxW3jrefUJTUvkAtbU"
+
+# Supabase 클라이언트 생성
+supabase = create_client(os.environ.get("SUPABASE_URL"), os.environ.get("SUPABASE_KEY"))
+
+# 사용자로부터 입력 받은 도와 관광지의 해시태그 리스트
+user_hashtags = [
+    input("원하는 해시태그1: "),
+    input("원하는 해시태그2: "),
+    input("원하는 해시태그3: ")
+]
+
+# Supabase에서 입력 받은 해시태그에 해당하는 데이터 추출
+data = supabase.table("case").select("NM", "Region", "KW1", "KW2", "KW3").execute()
+
+# 입력한 해시태그의 순서와 상관없이 찾기
+filtered_data = []
+
+# 해시태그가 3개 이상인 경우를 먼저 추가
+for row in data["data"]:
+    hashtags = [row["KW1"], row["KW2"], row["KW3"]]
+    if set(user_hashtags) <= set(hashtags):
+        filtered_data.append(row)
+
+# 해시태그가 2개일 경우 추가
+if len(filtered_data) < 5:
+    for row in data["data"]:
+        hashtags = [row["KW1"], row["KW2"], row["KW3"]]
+        common_hashtags = set(user_hashtags) & set(hashtags)
+        if len(common_hashtags) == 2:
+            filtered_data.append(row)
+
+# 해시태그가 1개일 경우 추가
+if len(filtered_data) < 5:
+    for row in data["data"]:
+        hashtags = [row["KW1"], row["KW2"], row["KW3"]]
+        common_hashtags = set(user_hashtags) & set(hashtags)
+        if len(common_hashtags) == 1:
+            filtered_data.append(row)
+
+# 결과를 원하는 형식으로 출력
+for index, row in enumerate(filtered_data[:5], start=1):
+    name = row["NM"]
+    address = row["Region"]
+    hashtag1 = row["KW1"]
+    hashtag2 = row["KW2"]
+    hashtag3 = row["KW3"]
+
+    print(f"{index}. 이름: {name}, 지역: {address}, 해시태그1: {hashtag1}, 해시태그2: {hashtag2}, 해시태그3: {hashtag3}")
+
+import os
+from supabase_py import create_client
+from gensim.models import Word2Vec
+from nltk.tokenize import word_tokenize
+
+import nltk
+nltk.download('punkt')
+
+# 환경 변수 설정
+os.environ["SUPABASE_URL"] = "https://poktjrhwxlfhtmzhwxxh.supabase.co"
+os.environ["SUPABASE_KEY"] = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBva3Rqcmh3eGxmaHRtemh3eHhoIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTY5NzAwMzU2OCwiZXhwIjoyMDEyNTc5NTY4fQ.ent9ALaIYrTG_G96xHEF8fr9CwxW3jrefUJTUvkAtbU"
+
+# Supabase 클라이언트 생성
+supabase = create_client(os.environ.get("SUPABASE_URL"), os.environ.get("SUPABASE_KEY"))
+
+# 사용자로부터 입력 받은 도와 관광지의 해시태그 리스트
+user_hashtags = [
+    input("원하는 해시태그1: "),
+    input("원하는 해시태그2: "),
+    input("원하는 해시태그3: ")
+]
+
+# Supabase에서 입력 받은 해시태그에 해당하는 데이터 추출
+data = supabase.table("case").select("NM", "Region", "KW1", "KW2", "KW3").execute()
+
+# Word embeddings 모델 학습을 위한 문장 생성
+sentences = []
+for row in data["data"]:
+    hashtags = [row["KW1"], row["KW2"], row["KW3"]]
+    sentences.append(word_tokenize(" ".join(hashtags)))
+
+# Word embeddings 모델 학습
+word2vec_model = Word2Vec(sentences, vector_size=100, window=5, min_count=1, workers=4)
+
+# 입력한 해시태그의 순서와 상관없이 찾기
+filtered_data = []
+
+# 해시태그가 3개 이상인 경우를 먼저 추가
+for row in data["data"]:
+    hashtags = [row["KW1"], row["KW2"], row["KW3"]]
+    similarity = word2vec_model.wv.n_similarity(user_hashtags, hashtags)
+    if (similarity > 0.5) & (set(user_hashtags) <= set(hashtags)):  # 임계값을 조절하여 유사성을 기반으로 필터링
+        filtered_data.append(row)
+
+# 해시태그가 2개일 경우 추가
+if len(filtered_data) < 5:
+    for row in data["data"]:
+        hashtags = [row["KW1"], row["KW2"], row["KW3"]]
+        common_hashtags = set(user_hashtags) & set(hashtags)
+        if len(common_hashtags) == 2:
+            filtered_data.append(row)
+
+# 해시태그가 1개일 경우 추가
+if len(filtered_data) < 5:
+    for row in data["data"]:
+        hashtags = [row["KW1"], row["KW2"], row["KW3"]]
+        common_hashtags = set(user_hashtags) & set(hashtags)
+        if len(common_hashtags) == 1:
+            filtered_data.append(row)
+
+# 결과를 원하는 형식으로 출력
+for index, row in enumerate(filtered_data[:5], start=1):
+    name = row["NM"]
+    address = row["Region"]
+    hashtag1 = row["KW1"]
+    hashtag2 = row["KW2"]
+    hashtag3 = row["KW3"]
+
+    print(f"{index}. 이름: {name}, 지역: {address}, 해시태그1: {hashtag1}, 해시태그2: {hashtag2}, 해시태그3: {hashtag3}")

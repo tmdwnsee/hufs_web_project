@@ -1,0 +1,50 @@
+body {
+    margin: 0;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+.navbar {
+    display : flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #ffffff;
+    padding: 8px 12px;
+}
+
+.navbar_logo {
+    font-size: 24px;
+    color: black; 
+}
+
+.navbar_logo i {
+    color: rgb(60, 60, 224);
+}
+
+.navbar_menu {
+    display: flex;
+    list-style: none;
+    padding-left: 160px;
+}
+
+.navbar_menu li {
+    padding: 8px 12px;
+}
+
+.search-login-container {
+    display: flex; /* 요소들을 수평으로 정렬 */
+    align-items: center; /* 수직 가운데 정렬 */
+  }
+  
+  .search-login-container form {
+    margin-right: 10px; /* Search 입력 필드 오른쪽 간격 조정 */
+  }
+  
+  .search-login-container button {
+    margin-left: 10px; /* Sign-up 버튼 왼쪽 간격 조정 */
+  }
+
+  

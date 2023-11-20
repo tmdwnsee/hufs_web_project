@@ -1,0 +1,447 @@
+
+<!doctype html>
+<html lang="en" data-bs-theme="auto">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.118.2">
+    <title>Product example · Bootstrap v5.3</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/product/">
+
+    
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+    <script type="module" src="log_out.js"></script>
+
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+
+      .b-example-divider {
+        width: 100%;
+        height: 3rem;
+        background-color: rgba(0, 0, 0, .1);
+        border: solid rgba(0, 0, 0, .15);
+        border-width: 1px 0;
+        box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+      }
+
+      .b-example-vr {
+        flex-shrink: 0;
+        width: 1.5rem;
+        height: 100vh;
+      }
+
+      .bi {
+        vertical-align: -.125em;
+        fill: currentColor;
+      }
+
+      .nav-scroller {
+        position: relative;
+        z-index: 2;
+        height: 2.75rem;
+        overflow-y: hidden;
+      }
+
+      .nav-scroller .nav {
+        display: flex;
+        flex-wrap: nowrap;
+        padding-bottom: 1rem;
+        margin-top: -1px;
+        overflow-x: auto;
+        text-align: center;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .btn-bd-primary {
+        --bd-violet-bg: #712cf9;
+        --bd-violet-rgb: 112.520718, 44.062154, 249.437846;
+
+        --bs-btn-font-weight: 600;
+        --bs-btn-color: var(--bs-white);
+        --bs-btn-bg: var(--bd-violet-bg);
+        --bs-btn-border-color: var(--bd-violet-bg);
+        --bs-btn-hover-color: var(--bs-white);
+        --bs-btn-hover-bg: #6528e0;
+        --bs-btn-hover-border-color: #6528e0;
+        --bs-btn-focus-shadow-rgb: var(--bd-violet-rgb);
+        --bs-btn-active-color: var(--bs-btn-hover-color);
+        --bs-btn-active-bg: #5a23c8;
+        --bs-btn-active-border-color: #5a23c8;
+      }
+
+      .bd-mode-toggle {
+        z-index: 1500;
+      }
+
+      .bd-mode-toggle .dropdown-menu .active .bi {
+        display: block !important;
+      }
+
+      .bg-body-tertiary {
+          position: relative;
+      }
+      
+      .search-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .search-container h2 {
+            text-align: left;
+            margin: 0;
+            margin-bottom: 20px;
+        }
+
+        
+
+        .options {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .option {
+            margin-right: 20px;
+            margin-bottom: 10px;
+        }
+
+        .option label {
+            display: flex;
+            align-items: center;
+        }
+
+        .option input[type="checkbox"] {
+            margin-right: 5px;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid #ccc;
+            margin: 20px 0;
+        }
+
+        .category-button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+
+        h2 {
+          text-align: center;
+          margin-top: 50px;
+          margin-bottom: 50px;
+        }
+
+        .form-control.me-2 {
+          margin: 5px; /* 원하는 여백 크기로 조정 */
+        }
+
+
+        .container {
+          margin-bottom: 20px;
+        }
+
+        table {
+          width: 100%;
+          border-collapse: collapse;
+          margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+    </style>
+
+    
+
+  </head>
+  <body>
+    
+
+<nav class="navbar  navbar-expand-md bg-body-tertiary fixed-top">
+  <div class="container-fluid">
+    <a href="member_home.html" class="navbar-brand">Connectrip</a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="mynavbar">
+
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="member_home.html">홈</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">국내여행</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="member_recommand.html">여행지 추천</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="member_list.html">동행</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="my_page.html">내 정보</a>
+        </li>
+      </ul>
+
+      <form class="d-flex" role="search">
+        <input class="form-control me-2" type="search" placeholder="Search.." aria-label="Search">
+        
+      </form>
+
+      <div class="d-flex">
+        <a id="logout-button" class="btn btn-primary">로그아웃</a>
+      </div>
+    </div>
+    
+    
+  </div>
+</nav>
+
+
+<main>
+  <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-body-tertiary" style="background-image: url('image/img_4.jpeg'); background-size: cover;">
+    <div class="col-md-6 p-lg-5 mx-auto my-5">
+      <h1 class="display-3 fw-bold">국내여행</h1>
+      <h3 class="fw-normal mb-3" style="color: white; margin-top: 20px;">한국의 관광명소를 키워드를 이용해<br>쉽고 간편하게</h3>
+    </div>
+    <div class="product-device shadow-sm d-none d-md-block"></div>
+    <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>
+</div>
+
+<div class="search-container">
+  <h2>카테고리</h2>
+    <div class="options">
+      <div class="option">
+        <label><input type="checkbox" name="category" value="서울특별시">서울특별시</label>
+      </div>
+      <div class="option">
+        <label><input type="checkbox" name="category" value="경기도">경기도</label>
+      </div>
+      <div class="option">
+        <label><input type="checkbox" name="category" value="강원특별자치도">강원특별자치도</label>
+      </div>
+      <div class="option">
+        <label><input type="checkbox" name="category" value="충청북도">충청북도</label>
+      </div>
+      <div class="option">
+        <label><input type="checkbox" name="category" value="충청남도">충청남도</label>
+      </div>
+      <div class="option">
+        <label><input type="checkbox" name="category" value="인천광역시">인천광역시</label>
+      </div>
+      <div class="option">
+        <label><input type="checkbox" name="category" value="부산광역시">부산광역시</label>
+      </div>
+      <div class="option">
+        <label><input type="checkbox" name="category" value="전라북도">전라북도</label>
+      </div>
+      <div class="option">
+        <label><input type="checkbox" name="category" value="전라남도">전라남도</label>
+      </div>
+      <div class="option">
+        <label><input type="checkbox" name="category" value="경상북도">경상북도</label>
+      </div>
+      <div class="option">
+        <label><input type="checkbox" name="category" value="경상남도">경상남도</label>
+      </div>
+    </div>
+
+    <hr>
+
+    <h2>키워드 검색</h2>
+    <div class="options">
+        <div class="option">
+            <label><input type="checkbox" name="price-range" value="#봄">#봄</label>
+        </div>
+        <div class="option">
+            <label><input type="checkbox" name="price-range" value="#여름휴가">#여름휴가</label>
+        </div>
+        <div class="option">
+          <label><input type="checkbox" name="price-range" value="#가을">#가을</label>
+        </div>
+        <div class="option">
+          <label><input type="checkbox" name="price-range" value="#겨울여행">#겨울여행</label>
+        </div>
+        <div class="option">
+            <label><input type="checkbox" name="price-range" value="#자연">#자연</label>
+        </div>
+        <div class="option">
+          <label><input type="checkbox" name="price-range" value="#도시">#도시</label>
+        </div>
+        <div class="option">
+          <label><input type="checkbox" name="price-range" value="#유적지">#유적지</label>
+        </div>
+        <div class="option">
+          <label><input type="checkbox" name="price-range" value="#바다">#바다</label>
+        </div>
+        <div class="option">
+          <label><input type="checkbox" name="price-range" value="#산">#산</label>
+        </div>
+        <div class="option">
+          <label><input type="checkbox" name="price-range" value="#계곡">#계곡</label>
+        </div>
+        <div class="option">
+          <label><input type="checkbox" name="price-range" value="#맛집">#맛집</label>
+        </div>
+        <div class="option">
+          <label><input type="checkbox" name="price-range" value="#문화축제">#문화축제</label>
+        </div>
+        <div class="option">
+          <label><input type="checkbox" name="price-range" value="#미술">#미술</label>
+        </div>
+        <div class="option">
+          <label><input type="checkbox" name="price-range" value="#백패킹">#백패킹</label>
+        </div>
+        <div class="option">
+          <label><input type="checkbox" name="price-range" value="#스포츠">#스포츠</label>
+        </div>
+        <div class="option">
+          <label><input type="checkbox" name="price-range" value="#농촌">#농촌</label>
+        </div>
+        <div class="option">
+          <label><input type="checkbox" name="price-range" value="#호캉스">#호캉스</label>
+        </div>
+        <div class="option">
+          <label><input type="checkbox" name="price-range" value="#뚜벅이">#뚜벅이</label>
+        </div>
+        <div class="option">
+          <label><input type="checkbox" name="price-range" value="#쇼핑">#쇼핑</label>
+        </div>
+        <div class="option">
+          <label><input type="checkbox" name="price-range" value="#TV에 나온">#TV에 나온</label>
+        </div>
+    </div>
+
+    <hr>
+
+    <button id="searchButton" class="category-button">검색</button>
+</div>
+
+<table id="dataTable">
+  <thead>
+      <tr>
+          <th>지역</th>
+          <th>장소명</th>
+          <th>주소</th>
+          <!-- 추가 필드가 있다면 여기에 추가 -->
+      </tr>
+  </thead>
+  <tbody></tbody>
+</table>
+
+<script type="module">
+  import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+  const supabaseUrl = 'https://poktjrhwxlfhtmzhwxxh.supabase.co';
+  const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBva3Rqcmh3eGxmaHRtemh3eHhoIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTcwMDM1NjgsImV4cCI6MjAxMjU3OTU2OH0.gWuR3vBZqM2zjHSGH0JfdJz5j9t4rOGy839b3zII208';
+
+  // Supabase 클라이언트 초기화
+  const supabase = createClient(supabaseUrl, supabaseKey);
+  document.addEventListener('DOMContentLoaded', function () {
+      // Add event listener to the searchButton
+      document.getElementById('searchButton').addEventListener('click', search);
+  });
+
+  function getSelectedOptions(name) {
+    const checkboxes = document.querySelectorAll(`[name="${name}"]:checked`);
+    return Array.from(checkboxes).map(checkbox => checkbox.value);
+  }
+
+  // 데이터를 가져와서 표시하는 함수
+  async function search() {
+    try {
+      // 선택된 카테고리와 키워드 가져오기
+      const selectedCategories = getSelectedOptions('category');
+            
+      // Supabase 쿼리에 조건 추가
+      const { data, error } = await supabase
+                .from('Ldata')
+                .select('*')
+                .in('CTPRVN_NM', selectedCategories)
+                
+
+            if (error) {
+                console.error('데이터 가져오기 오류:', error.message);
+                throw error;
+            }
+
+            const dataTableBody = document.querySelector('#dataTable tbody');
+            dataTableBody.innerHTML = '';  // 이전 데이터 지우기
+
+            if (data && data.length > 0) {
+                data.forEach(item => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `<td>${item.CTPRVN_NM}</td><td>${item.AREA_CLTUR_TRRSRT_NM}</td><td>${item.ADDR}</td>`;
+                    dataTableBody.appendChild(row);
+                });
+            } else {
+                console.error('데이터가 없거나 오류가 발생했습니다.');
+            }
+        } catch (error) {
+            console.error('데이터를 가져오는 중 오류 발생:', error.message);
+        }
+    }
+
+
+</script>
+  
+</main>
+
+<footer style="background-color: #ffffff; color: #000000;">
+  <div class="container">
+    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+      <p class="col-md-4 mb-0 text-body-secondary">&copy; 서울 쥐와 시골 쥐</p>
+  
+      <ul class="nav col-md-4 justify-content-end">
+        <li class="nav-item"><a href="member_home.html" class="nav-link px-2 text-body-secondary">홈</a></li>
+        <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">국내여행</a></li>
+        <li class="nav-item"><a href="member_recommand.html" class="nav-link px-2 text-body-secondary">여행지 추천</a></li>
+        <li class="nav-item"><a href="member_list.html" class="nav-link px-2 text-body-secondary">동행</a></li>
+        <li class="nav-item"><a href="my_page.html" class="nav-link px-2 text-body-secondary">내 정보</a></li>
+      </ul>
+    </footer>
+  </div>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+    </body>
+</html>

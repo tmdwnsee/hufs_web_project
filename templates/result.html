@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>알고리즘 결과</title>
+</head>
+<body>
+    <h1>알고리즘 결과</h1>
+    <ul>
+        {% for row in data %}
+            <li>{{ row.NM }} - {{ row.Region }} - {{ row.KW1 }} - {{ row.KW2 }} - {{ row.KW3 }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
